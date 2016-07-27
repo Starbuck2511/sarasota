@@ -1,5 +1,12 @@
-angular.module('starter.controllers', [])
-    .controller('AppCtrl', function ($scope) {
+angular.module('app.controllers', [])
+    .controller('ShellController', function ($scope) {
+        // With the new view caching in Ionic, Controllers are only called
+        // when they are recreated or on app start, instead of every page change.
+        // To listen for when this page is active (for example, to refresh data),
+        // listen for the $ionicView.enter event:
+        //
+        //$scope.$on('$ionicView.enter', function(e) {
+        //});
     })
     .controller('HomeCtrl', function ($scope) {
     })
@@ -11,13 +18,7 @@ angular.module('starter.controllers', [])
     })
 
     .controller('GroupsCtrl', function ($scope, Groups) {
-        // With the new view caching in Ionic, Controllers are only called
-        // when they are recreated or on app start, instead of every page change.
-        // To listen for when this page is active (for example, to refresh data),
-        // listen for the $ionicView.enter event:
-        //
-        //$scope.$on('$ionicView.enter', function(e) {
-        //});
+
 
         $scope.groups = Groups.all();
 
