@@ -26,21 +26,7 @@
 
     ])
 
-        .run(function ($ionicPlatform) {
-            $ionicPlatform.ready(function () {
-                // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
-                // for form inputs)
-                if (window.cordova && window.cordova.plugins && window.cordova.plugins.Keyboard) {
-                    cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
-                    cordova.plugins.Keyboard.disableScroll(true);
 
-                }
-                if (window.StatusBar) {
-                    // org.apache.cordova.statusbar required
-                    StatusBar.styleDefault();
-                }
-            });
-        })
 
         .config(function ($stateProvider, $urlRouterProvider) {
 
@@ -111,4 +97,62 @@
             $urlRouterProvider.otherwise('/app/home');
 
         })
+        .config(authConfig)
+        .run(function ($ionicPlatform, $rootScope, $state, $window, auth, AUTH_EVENTS) {
+            $ionicPlatform.ready(function () {
+                // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
+                // for form inputs)
+                if (window.cordova && window.cordova.plugins && window.cordova.plugins.Keyboard) {
+                    cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
+                    cordova.plugins.Keyboard.disableScroll(true);
+
+                }
+                if (window.StatusBar) {
+                    // org.apache.cordova.statusbar required
+                    StatusBar.styleDefault();
+                }
+            });
+
+            // auth goes here ...
+            $rootScope.$on('$stateChangeStart', function (event, next, nextParams, fromState) {
+                if (!auth.isAuthenticated()) {
+                    console.log('next name '+ next.name);
+                    console.log('next params ' + nextParams);
+                    console.log('from state ' + fromState);
+                    console.log('auth events  ' + AUTH_EVENTS);
+
+                    if (next.name !== 'app.login' && next.name !== 'app.register' && next.name !== 'app.home') {
+                        event.preventDefault();
+                        $state.go('app.register');
+                        console.log('go to login ...');
+                    }
+                }
+            });
+
+            // hook not found
+            $rootScope.$on('$stateNotFound',
+                function(event, unfoundState, fromState, fromParams) {
+                    console.log(unfoundState.to); // "lazy.state"
+                    console.log(unfoundState.toParams); // {a:1, b:2}
+                    console.log(unfoundState.options); // {inherit:false} + default options
+                });
+
+            // hook success
+            $rootScope.$on('$stateChangeSuccess',
+                function(event, toState, toParams, fromState, fromParams) {
+                    // success here
+                    // display new view from top
+                    $window.scrollTo(0, 0);
+                });
+        });
+
+    // auth interceptor configuration
+    authConfig.$inject = ['$httpProvider'];
+    function authConfig($httpProvider) {
+        $httpProvider.interceptors.push('AuthInterceptor');
+        var localTokenKey = 'auth-token';
+        var token = window.localStorage.getItem(localTokenKey);
+        $httpProvider.defaults.headers.common['X-Auth-Token'] = token;
+        $httpProvider.defaults.headers.post["Content-Type"] = "application/x-www-form-urlencoded";
+    }
 })();
