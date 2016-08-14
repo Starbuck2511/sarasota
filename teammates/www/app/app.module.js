@@ -15,17 +15,18 @@
 
         /* shared modules */
         'app.core',
-        //'app.rest',
+
 
         /* feature modules */
         'app.layout',
         'app.common',
         'app.auth',
-        'app.user'
-        //'app.groups'
+        'app.rest',
+        'app.user',
+        'app.group'
+
 
     ])
-
 
 
         .config(function ($stateProvider, $urlRouterProvider) {
@@ -91,14 +92,27 @@
                             controller: 'CommonController'
                         }
                     }
-                });
+                })
+
+                .state('app.groups', {
+                    url: '/groups',
+                    views: {
+                        'menu-content': {
+                            templateUrl: 'app/group/groups.html',
+                            controller: 'GroupController'
+                        }
+                    }
+                })
+
+            ;
 
             // if none of the above states are matched, use this as the fallback
             $urlRouterProvider.otherwise('/app/home');
 
         })
         .config(authConfig)
-        .run(function ($ionicPlatform, $rootScope, $state, $window, auth, AUTH_EVENTS) {
+        .config(loadingScreenConfig)
+        .run(function ($ionicPlatform, $rootScope, $state, $window, auth, AUTH_EVENTS, $ionicLoading) {
             $ionicPlatform.ready(function () {
                 // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
                 // for form inputs)
@@ -116,22 +130,31 @@
             // auth goes here ...
             $rootScope.$on('$stateChangeStart', function (event, next, nextParams, fromState) {
                 if (!auth.isAuthenticated()) {
-                    console.log('next name '+ next.name);
-                    console.log('next params ' + nextParams);
-                    console.log('from state ' + fromState);
+                    //console.log('next name '+ next.name);
+                    //console.log('next params ' + nextParams);
+                    //console.log('from state ' + fromState);
                     console.log('auth events  ' + AUTH_EVENTS);
 
                     if (next.name !== 'app.login' && next.name !== 'app.register' && next.name !== 'app.home') {
                         event.preventDefault();
                         $state.go('app.register');
-                        console.log('go to login ...');
+                        //console.log('go to login ...');
                     }
                 }
             });
 
+            // loading screen goes here ...
+            $rootScope.$on('loading:show', function() {
+                $ionicLoading.show({template: '<p>Loading...</p><ion-spinner></ion-spinner>'});
+            });
+
+            $rootScope.$on('loading:hide', function() {
+                $ionicLoading.hide();
+            });
+
             // hook not found
             $rootScope.$on('$stateNotFound',
-                function(event, unfoundState, fromState, fromParams) {
+                function (event, unfoundState, fromState, fromParams) {
                     console.log(unfoundState.to); // "lazy.state"
                     console.log(unfoundState.toParams); // {a:1, b:2}
                     console.log(unfoundState.options); // {inherit:false} + default options
@@ -139,7 +162,7 @@
 
             // hook success
             $rootScope.$on('$stateChangeSuccess',
-                function(event, toState, toParams, fromState, fromParams) {
+                function (event, toState, toParams, fromState, fromParams) {
                     // success here
                     // display new view from top
                     $window.scrollTo(0, 0);
@@ -154,5 +177,26 @@
         var token = window.localStorage.getItem(localTokenKey);
         $httpProvider.defaults.headers.common['X-Auth-Token'] = token;
         $httpProvider.defaults.headers.post["Content-Type"] = "application/x-www-form-urlencoded";
+    }
+
+    // global loading screen configuration
+    loadingScreenConfig.$inject = ['$httpProvider'];
+    function loadingScreenConfig($httpProvider) {
+        $httpProvider.interceptors.push(function($rootScope) {
+            return {
+                request: function(config) {
+                    $rootScope.$broadcast('loading:show');
+                    return config;
+                },
+                response: function(response) {
+                    $rootScope.$broadcast('loading:hide');
+                    return response;
+                },
+                responseError: function(rejection) {
+                    $rootScope.$broadcast('loading:hide');
+                    return rejection;
+                }
+            }
+        })
     }
 })();

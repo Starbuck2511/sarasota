@@ -74,6 +74,7 @@
                             reject(result.statusText);
                         }
                     }, function(result) {
+                        console.log('auth::reject' + result.statusText);
                         reject(result.statusText);
                     });
                 });

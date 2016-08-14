@@ -2,8 +2,8 @@
     'use strict';
     angular.module('app.auth', [])
 
-        .controller('AuthController', ['$scope', 'auth',
-            function ($scope, auth) {
+        .controller('AuthController', ['$scope', 'auth', '$state',
+            function ($scope, auth, $state) {
 
                 $scope.data = {};
 
@@ -13,8 +13,10 @@
 
                     auth.login(username, password).then(function(){
                         console.log('Auth success');
+                        $state.go('app.home');
                     },function(){
                         console.log('Auth failure');
+                        $state.go('app.register');
                     });
                 };
             }]);
