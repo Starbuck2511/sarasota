@@ -8,6 +8,7 @@
                     getGroups();
                 }
 
+                // @todo check if user can show other groups by manipulation of url
                 if ('app.groups.overview' == $state.current.name) {
                     getGroup($stateParams.groupId);
                 }
