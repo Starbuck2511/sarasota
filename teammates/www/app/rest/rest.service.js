@@ -15,11 +15,15 @@
                 return $http.get(API_ENDPOINT.url + '/users/' + user.getId() + '/groups');
             };
 
+            rest.getUserGroup = function (id) {
+                return $http.get(API_ENDPOINT.url + '/users/' + user.getId() + '/groups/' + id);
+            };
+
             rest.getGroup = function (id) {
                 return $http.get(API_ENDPOINT.url + '/groups/' + id);
             };
 
-            rest.addGroup = function (group) {
+            rest.createGroup = function (group) {
                 return $http.post(API_ENDPOINT.url + '/groups', group);
             };
 

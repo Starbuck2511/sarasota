@@ -95,13 +95,53 @@
                 })
 
                 .state('app.groups', {
+                    abstract: true,
                     url: '/groups',
                     views: {
                         'menu-content': {
+                            template: '<ion-nav-view name="groups-content"></ion-nav-view>'
+
+                        }
+                    }
+                })
+
+                .state('app.groups.index', {
+                    url: '/index',
+                    views: {
+                        'groups-content': {
                             templateUrl: 'app/group/groups.html',
+                            controller: 'GroupController'
+
+                        }
+                    }
+
+                })
+
+
+                .state('app.groups.create', {
+                    url: '/create',
+                    views: {
+                        'groups-content': {
+                            templateUrl: 'app/group/group-create.html',
                             controller: 'GroupController'
                         }
                     }
+                })
+
+                .state('app.groups.overview', {
+                    url: '/:groupId/overview',
+                    views: {
+                        'groups-content': {
+                            templateUrl: 'app/group/group-overview.html',
+                            controller: 'GroupController'
+
+                        }
+                    },
+                    params: {
+                        groupId: null
+                    }
+
+
                 })
 
             ;

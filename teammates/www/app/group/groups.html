@@ -1,12 +1,12 @@
 <ion-view view-title="Groups">
     <ion-nav-buttons side="right">
-        <button class="button button-icon button-clear ion-ios-plus-empty" ng-click="doSomething()">
+        <button class="button button-icon button-clear ion-ios-plus-empty" ui-sref="app.groups.create">
         </button>
     </ion-nav-buttons>
     <ion-content>
         <ion-list>
             <ion-item class="item-remove-animate item-icon-right" ng-repeat="group in groups" type="item-text-wrap"
-                      href="">
+                      ui-sref="app.groups.overview({groupId: group.id})">
                 <h2>{{group.name}}</h2>
                 <p>{{group.description}}</p>
                 <i class="icon ion-chevron-right icon-accessory"></i>

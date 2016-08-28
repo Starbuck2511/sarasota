@@ -1,0 +1,16 @@
+<ion-view view-title="Create new group">
+    <ion-nav-buttons side="right">
+    </ion-nav-buttons>
+    <ion-content class="padding">
+        <p>Please enter group information</p>
+        <div class="list list-inset">
+            <label class="item item-input">
+                <input type="text" placeholder="Name of group" ng-model="group.name">
+            </label>
+            <label class="item item-input">
+                <input type="text" placeholder="A short description of your group" ng-model="group.description">
+            </label>
+        </div>
+        <button class="button button-block button-calm" ng-click="createGroup(group)">Save</button>
+    </ion-content>
+</ion-view>

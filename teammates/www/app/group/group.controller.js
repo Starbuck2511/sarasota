@@ -1,41 +1,47 @@
 (function () {
     'use strict';
     angular.module('app.group', [])
-        .controller('GroupController', ['$scope', 'rest',
-            function ($scope, rest) {
+        .controller('GroupController', ['$scope', 'rest', '$state', '$stateParams',
+            function ($scope, rest, $state, $stateParams) {
+                console.log($state.current);
+                if ('app.groups.index' == $state.current.name) {
+                    getGroups();
+                }
 
-                $scope.status;
-                $scope.groups;
-                $scope.group;
-                $scope.add = function(group) {
-                    addGroup(group);
+                if ('app.groups.overview' == $state.current.name) {
+                    getGroup($stateParams.groupId);
+                }
+
+                $scope.createGroup = function (group) {
+                    createGroup(group);
                 };
 
-                getUserGroups();
+                function getGroup(groupId) {
+
+                    rest.getGroup(groupId)
+                        .success(function (data) {
+                            $scope.group = data;
+                        })
+                        .error(function (error) {
+                            $scope.status = 'Unable to get group ' + error.message;
+                        });
+                }
 
                 function getGroups() {
+
                     rest.getGroups()
                         .success(function (data) {
                             $scope.groups = data;
                         })
                         .error(function (error) {
-                            $scope.status = 'Unable to load groups data: ' + error.message;
-                        });
-                }
-
-                function getUserGroups() {
-                    rest.getUserGroups()
-                        .success(function (data) {
-                            $scope.groups = data;
-                        })
-                        .error(function (error) {
-                            $scope.status = 'Unable to load groups data: ' + error.message;
+                            $scope.status = 'Unable to get groups ' + error.message;
                         });
                 }
 
 
-                function addGroup(group) {
-                    rest.addGroup(group)
+                function createGroup(group) {
+
+                    rest.createGroup(group)
                         .success(function (data) {
                             $scope.group = data;
                         })
