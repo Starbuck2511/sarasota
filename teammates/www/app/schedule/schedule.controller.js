@@ -7,6 +7,8 @@
 
                 var groupId = $stateParams.groupId;
                 $scope.groupId = groupId;
+                $scope.dateTimeValue = '';
+
                 getGroupSchedules(groupId);
 
                 $scope.createGroupSchedule = function (schedule) {

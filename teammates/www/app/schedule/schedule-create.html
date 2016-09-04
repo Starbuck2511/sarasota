@@ -4,8 +4,11 @@
     <ion-content class="padding">
         <p>Please enter schedule information</p>
         <div class="list list-inset">
+
             <label class="item item-input">
-                <input type="text" placeholder="Name of Schedule" ng-model="schedule.name">
+                <input ion-datetime-picker type="text" placeholder="Date of schedule" ng-model="dateTimeValue"
+                       value="{{ dateTimeValue|date: 'dd.MM.yyyy - H:mm:ss' }}">
+
             </label>
 
             <label class="item item-input item-select">
@@ -15,7 +18,6 @@
                 <select>
                     <option>Single</option>
                     <option>Weekly</option>
-                    <option>Monthly</option>
                 </select>
             </label>
         </div>

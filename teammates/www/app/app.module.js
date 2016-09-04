@@ -13,6 +13,9 @@
         /* ionic */
         'ionic',
 
+        /* 3rd party modules */
+        'ion-datetime-picker',
+
         /* shared modules */
         'app.core',
 
