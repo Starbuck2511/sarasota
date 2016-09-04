@@ -3,7 +3,8 @@
     </ion-nav-buttons>
     <ion-content>
         <ion-list>
-            <ion-item class="item-remove-animate item-icon-right" type="item-text-wrap">
+            <ion-item class="item-remove-animate item-icon-right" type="item-text-wrap"
+                      ui-sref="app.groups.schedules.index({groupId: group.id})">
                 <h2>{{group.name}}</h2>
                 <p>Appointments</p>
                 <i class="icon ion-chevron-right icon-accessory"></i>

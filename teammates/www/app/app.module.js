@@ -23,7 +23,8 @@
         'app.auth',
         'app.rest',
         'app.user',
-        'app.group'
+        'app.group',
+        'app.schedule'
 
 
     ])
@@ -142,6 +143,45 @@
                     }
 
 
+                })
+
+                .state('app.groups.schedules', {
+                    abstract: true,
+                    url: '/:groupId/schedules',
+                    views: {
+                        'groups-content': {
+                            template: '<ion-nav-view name="schedules-content">zzz</ion-nav-view>'
+
+                        }
+                    },
+                    params: {
+                        groupId: null
+                    }
+                })
+
+                .state('app.groups.schedules.index', {
+                    url: '/index',
+                    views: {
+                        'schedules-content': {
+                            templateUrl: 'app/schedule/schedules.html',
+                            controller: 'ScheduleController'
+
+                        }
+                    },
+                    params: {
+                        groupId: null
+                    }
+
+                })
+
+                .state('app.groups.schedules.create', {
+                    url: '/create',
+                    views: {
+                        'schedules-content': {
+                            templateUrl: 'app/schedule/schedule-create.html',
+                            controller: 'ScheduleController'
+                        }
+                    }
                 })
 
             ;

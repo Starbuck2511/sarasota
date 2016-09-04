@@ -3,7 +3,7 @@
     angular.module('app.group', [])
         .controller('GroupController', ['$scope', 'rest', '$state', '$stateParams',
             function ($scope, rest, $state, $stateParams) {
-                console.log($state.current);
+
                 if ('app.groups.index' == $state.current.name) {
                     getGroups();
                 }
