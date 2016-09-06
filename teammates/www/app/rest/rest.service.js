@@ -32,6 +32,7 @@
             };
 
             rest.createGroupSchedule = function (groupId, schedule) {
+                console.dir(schedule);
                 return $http.post(API_ENDPOINT.url + '/groups/' + groupId + '/schedules', schedule);
             };
 

@@ -6,8 +6,8 @@
         <div class="list list-inset">
 
             <label class="item item-input">
-                <input ion-datetime-picker type="text" placeholder="Date of schedule" ng-model="dateTimeValue"
-                       value="{{ dateTimeValue|date: 'dd.MM.yyyy - H:mm:ss' }}">
+                <input ion-datetime-picker type="text" placeholder="Date of schedule" ng-model="schedule.startDate"
+                       value="{{ schedule.startDate|date: 'dd.MM.yyyy - HH:mm:ss' }}">
 
             </label>
 
@@ -15,9 +15,9 @@
                 <div class="input-label">
                     Type of schedule
                 </div>
-                <select>
-                    <option>Single</option>
-                    <option>Weekly</option>
+                <select ng-model="schedule.type">
+                    <option value="SINGLE">Single</option>
+                    <option value="WEEKLY">Weekly</option>
                 </select>
             </label>
         </div>
