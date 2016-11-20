@@ -62,6 +62,7 @@
 
                     rest.getGroupSchedule(groupId, scheduleId)
                         .success(function (data) {
+                            console.log(data);
                             $scope.schedule = data;
                         })
                         .error(function (error) {
