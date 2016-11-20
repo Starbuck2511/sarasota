@@ -5,7 +5,8 @@
     </ion-nav-buttons>
     <ion-content>
         <ion-list>
-            <ion-item class="item-remove-animate item-icon-right" ng-repeat="schedule in schedules" type="item-text-wrap">
+            <ion-item class="item-remove-animate item-icon-right" ng-repeat="schedule in schedules" type="item-text-wrap"
+                      ui-sref="app.groups.schedules.overview({scheduleId: schedule.id})"">
                 <h2>{{schedule.id}}</h2>
                 <p>{{schedule.startDate}}</p>
                 <i class="icon ion-chevron-right icon-accessory"></i>

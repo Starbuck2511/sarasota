@@ -177,6 +177,21 @@
 
                 })
 
+                .state('app.groups.schedules.overview', {
+                    url: '/:scheduleId/overview',
+                    views: {
+                        'schedules-content': {
+                            templateUrl: 'app/schedule/schedule-overview.html',
+                            controller: 'ScheduleController'
+
+                        }
+                    },
+                    params: {
+                        scheduleId: null
+                    }
+
+                })
+
                 .state('app.groups.schedules.create', {
                     url: '/create',
                     views: {

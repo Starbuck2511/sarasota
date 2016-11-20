@@ -45,13 +45,13 @@
 
                     console.log(group);
 
-                    /*rest.createGroup(group)
+                    rest.createGroup(group)
                         .success(function (data) {
                             $scope.group = data;
                         })
                         .error(function (error) {
                             $scope.status = 'Unable to save group ' + error.message;
-                        });*/
+                        });
                 }
             }]);
 })();

@@ -31,10 +31,23 @@
                 return $http.get(API_ENDPOINT.url + '/groups/' + groupId + '/schedules');
             };
 
+            rest.getGroupSchedule = function (groupId, scheduleId) {
+                return $http.get(API_ENDPOINT.url + '/groups/' + groupId + '/schedules/' + scheduleId);
+            };
+
             rest.createGroupSchedule = function (groupId, schedule) {
-                console.dir(schedule);
                 return $http.post(API_ENDPOINT.url + '/groups/' + groupId + '/schedules', schedule);
             };
+
+            rest.acceptGroupSchedule = function (groupId, scheduleId) {
+                return $http.post(API_ENDPOINT.url + '/groups/' + groupId + '/schedules/' + scheduleId + '/accept');
+            };
+
+            rest.declineGroupSchedule = function (groupId, scheduleId) {
+                return $http.post(API_ENDPOINT.url + '/groups/' + groupId + '/schedules/' + scheduleId + '/decline');
+            };
+
+
 
             return rest;
         }]);
