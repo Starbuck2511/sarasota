@@ -27,12 +27,22 @@
                         },
                         buttonClicked: function (index) {
                             if (0 === index) {
-                               rest.acceptGroupSchedule(groupId, scheduleId);
+                                rest.acceptGroupSchedule(groupId, scheduleId)
+                                    .success(function () {
+                                        getGroupSchedule(groupId, scheduleId);
+                                    }).error(function (error) {
+                                    $scope.status = 'Unable to accept schedules ' + error.message;
+                                });
                             }
                             return true;
                         },
                         destructiveButtonClicked: function () {
-                            rest.declineGroupSchedule(groupId, scheduleId);
+                            rest.declineGroupSchedule(groupId, scheduleId)
+                                .success(function () {
+                                    getGroupSchedule(groupId, scheduleId);
+                                }).error(function (error) {
+                                $scope.status = 'Unable to decline schedules ' + error.message;
+                            });
                             return true;
                         }
                     });
