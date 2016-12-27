@@ -1,2 +1,2 @@
 # sarasota
-An ionic project
+An ionic v1 project
